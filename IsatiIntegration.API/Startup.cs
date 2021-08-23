@@ -1,5 +1,8 @@
+using IsatiIntegration.API.Services;
+using IsatiIntegration.API.Services.Interfaces;
 using IsatiIntegration.API.Settings;
 using IsatiIntegration.API.Settings.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,11 +12,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IsatiIntegration.API
@@ -35,9 +40,32 @@ namespace IsatiIntegration.API
             services.Configure<MongoSettings>(Configuration.GetSection(nameof(MongoSettings)));
 
             services.AddSingleton<IIsatiIntegrationSettings>(Span => Span.GetRequiredService<IOptions<IsatiIntegrationSettings>>().Value);
-            services.AddSingleton<IMongoSettings>(Span => Span.GetRequiredService<IOptions<IMongoSettings>>().Value);
+            services.AddSingleton<IMongoSettings>(Span => Span.GetRequiredService<IOptions<MongoSettings>>().Value);
 
             // Services part
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            // Authentiction part
+            var isatiIntegrationSettings = Configuration.GetSection(nameof(IsatiIntegrationSettings)).Get<IsatiIntegrationSettings>();
+            var key = Encoding.ASCII.GetBytes(isatiIntegrationSettings.ApiSecret);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(key),
+                   ValidateIssuer = false,
+                   ValidateAudience = false
+               };
+           });
 
             // Cors policy
             services.AddCors(options =>
@@ -101,6 +129,7 @@ namespace IsatiIntegration.API
 
             app.UseRouting();
 
+            //app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
