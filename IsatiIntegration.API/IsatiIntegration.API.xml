@@ -4,5 +4,11 @@
         <name>IsatiIntegration.API</name>
     </assembly>
     <members>
+        <member name="M:IsatiIntegration.API.Controllers.WeatherForecastController.Get">
+            <summary>
+            A controller
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

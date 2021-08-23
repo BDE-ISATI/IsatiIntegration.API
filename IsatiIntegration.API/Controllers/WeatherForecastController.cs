@@ -23,6 +23,10 @@ namespace IsatiIntegration.API.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// A controller
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
