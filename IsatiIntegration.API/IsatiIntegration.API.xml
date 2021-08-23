@@ -4,11 +4,81 @@
         <name>IsatiIntegration.API</name>
     </assembly>
     <members>
-        <member name="M:IsatiIntegration.API.Controllers.WeatherForecastController.Get">
+        <member name="P:IsatiIntegration.API.Entities.User.ProfilePictureId">
             <summary>
-            A controller
+            The user's profile picture
             </summary>
-            <returns></returns>
+            <example>45d5ae0ad9221e701ceeba5b</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.User.FirstName">
+            <summary>
+            The user's first name
+            </summary>
+            <example>Victor</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.User.LastName">
+            <summary>
+            The user's last name
+            </summary>
+            <example>DENIS</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.User.Email">
+            <summary>
+            The user's email
+            </summary>
+            <example>admin@feldrise.com</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.User.Role">
+            <summary>
+            The user's role. The roles are : Admin, Captain, Player
+            </summary>
+            <example>Adoptant</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.User.Token">
+            <summary>
+            The user's connection token
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.LoginModel.Email">
+            <summary>
+            The user's email
+            </summary>
+            <example>admin@feldrise.com</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.LoginModel.Password">
+            <summary>
+            The user's password
+            </summary>
+            <example>MySyperSecurePassword</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.RegisterModel.ProfilePicture">
+            <summary>
+            The user's profile picture
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.RegisterModel.FirstName">
+            <summary>
+            The user's first name
+            </summary>
+            <example>Victor</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.RegisterModel.LastName">
+            <summary>
+            The user's last name
+            </summary>
+            <example>DENIS</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.RegisterModel.Email">
+            <summary>
+            The user's email
+            </summary>
+            <example>admin@feldrise.com</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.RegisterModel.Password">
+            <summary>
+            The user's password
+            </summary>
+            <example>MySuperSecurePassword</example>
         </member>
     </members>
 </doc>
