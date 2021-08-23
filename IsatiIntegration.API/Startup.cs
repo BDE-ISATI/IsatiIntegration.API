@@ -1,3 +1,5 @@
+using IsatiIntegration.API.Settings;
+using IsatiIntegration.API.Settings.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +30,16 @@ namespace IsatiIntegration.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configuration part
+            services.Configure<IsatiIntegrationSettings>(Configuration.GetSection(nameof(IsatiIntegrationSettings)));
+            services.Configure<MongoSettings>(Configuration.GetSection(nameof(MongoSettings)));
+
+            services.AddSingleton<IIsatiIntegrationSettings>(Span => Span.GetRequiredService<IOptions<IsatiIntegrationSettings>>().Value);
+            services.AddSingleton<IMongoSettings>(Span => Span.GetRequiredService<IOptions<IMongoSettings>>().Value);
+
+            // Services part
+
+            // Cors policy
             services.AddCors(options =>
             {
                 options.AddPolicy("developerPolicy", builder =>
@@ -39,7 +52,10 @@ namespace IsatiIntegration.API
                 });
             });
 
+            // Controllers
             services.AddControllers();
+
+            // Swagger documentation part
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
