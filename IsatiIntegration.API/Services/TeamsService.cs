@@ -43,6 +43,11 @@ namespace IsatiIntegration.API.Services
         {
             await _teams.InsertOneAsync(toCreate);
 
+            if (toCreate.CaptainId != null)
+            {
+                await UpdateCaptainData(toCreate.CaptainId, toCreate.Id);
+            }
+
             return toCreate.Id;
         }
 
@@ -55,14 +60,20 @@ namespace IsatiIntegration.API.Services
 
             if (toUpdate.CaptainId != null)
             {
-                var userUpdate = Builders<User>.Update
-                    .Set(dbUser => dbUser.Role, Role.Captain);
-
-                await _users.UpdateOneAsync(dbUser =>
-                    dbUser.Id == toUpdate.CaptainId,
-                    userUpdate
-                );
+                await UpdateCaptainData(toUpdate.CaptainId, id);
             }
+        }
+
+        private async Task UpdateCaptainData(string captainId, string teamId)
+        {
+            var userUpdate = Builders<User>.Update
+                    .Set(dbUser => dbUser.Role, Role.Captain)
+                    .Set(dbUser => dbUser.TeamId, teamId);
+
+            await _users.UpdateOneAsync(dbUser =>
+                dbUser.Id == captainId,
+                userUpdate
+            );
         }
     }
 }
