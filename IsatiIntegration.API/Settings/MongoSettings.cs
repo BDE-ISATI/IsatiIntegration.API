@@ -10,6 +10,7 @@ namespace IsatiIntegration.API.Settings
     {
         // The collections 
         public string UsersCollectionName { get; set; }
+        public string TeamsCollectionName { get; set; }
         public string SoloChallengesCollectionName { get; set; }
 
 

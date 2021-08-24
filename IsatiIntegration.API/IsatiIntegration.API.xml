@@ -48,6 +48,57 @@
             <response code="401">Only admins can update solo challenges</response>
             <response code="200">The solo challges has successfully been updated</response>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.GetTeams">
+            <summary>
+            Get all teams
+            </summary>
+            <response code="401">You must be logged in</response>
+            <response code="200">Return a list of the teams</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.GetTeam(System.String)">
+            <summary>
+            Get a team
+            </summary>
+            <param name="id"></param>
+            <response code="401">You must be logged in</response>
+            <response code="404">The team doesn't exist</response>
+            <response code="200">Return the team</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.CreateTeam(IsatiIntegration.API.Entities.Team)">
+            <summary>
+            Create a team
+            </summary>
+            <param name="toCreate"></param>
+            <response code="401">You must be logged in</response>
+            <response code="403">Only admin can create teams</response>
+            <response code="200">Return the newly created team's id</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.UpdateTeam(System.String,IsatiIntegration.API.Entities.Team)">
+            <summary>
+            Update a team
+            </summary>
+            <param name="id"></param>
+            <param name="toUpdate"></param>
+            <reponse code="401">You must be logged in</reponse>
+            <response code="403">Only admin can update teams</response>
+            <response code="200">The team has been successfully updated</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.GetUsers">
+            <summary>
+            Get all users of the application
+            </summary>
+            <response code="401">You must be logged in</response>
+            <response code="200">Return the list of application's users</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.GetUser(System.String)">
+            <summary>
+            Get a specific user
+            </summary>
+            <param name="id"></param>
+            <response code="401">You must be logged in</response>
+            <response code="404">The user doesn't exist</response>
+            <response code="200">Return the user corresponding to the given id</response>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.SoloChallenge.Title">
             <summary>
             The challenge title
@@ -84,9 +135,33 @@
             </summary>
             <example>2021-09-07T14:40:04.1351158+01:00</example>
         </member>
+        <member name="P:IsatiIntegration.API.Entities.Team.CaptainId">
+            <summary>
+            The team captain
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Team.Name">
+            <summary>
+            The team name
+            </summary>
+            <example>Isatirebouchon</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Team.TeamHEXColor">
+            <summary>
+            The team color
+            </summary>
+            <example>#f70c35</example>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.User.ProfilePictureId">
             <summary>
             The user's profile picture
+            </summary>
+            <example>45d5ae0ad9221e701ceeba5b</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.User.TeamId">
+            <summary>
+            The user's team
             </summary>
             <example>45d5ae0ad9221e701ceeba5b</example>
         </member>

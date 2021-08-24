@@ -45,6 +45,7 @@ namespace IsatiIntegration.API.Services
 
             if (user == null) { return null; }
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt)) { return null; }
+            if (user.Role == Role.Player && user.TeamId == null) throw new Exception("Vous n'avez pas encore d'équie");
 
             // Since the authentication is successful, now we can
             // generate the token

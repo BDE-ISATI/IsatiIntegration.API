@@ -10,5 +10,6 @@ namespace IsatiIntegration.API.Services.Interfaces
     {
         Task<User> GetFullUser(string id);
         Task<User> GetSensitiveUser(string id);
+        Task<List<User>> GetAllUsers(bool removeSensitiveInformation = true);
     }
 }

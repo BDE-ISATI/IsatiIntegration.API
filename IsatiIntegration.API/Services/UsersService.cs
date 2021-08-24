@@ -39,5 +39,21 @@ namespace IsatiIntegration.API.Services
 
             return fullUser;
         }
+
+        public async Task<List<User>> GetAllUsers(bool removeSensitiveInformations = true)
+        {
+            var usersCursor = await _users.FindAsync(dbUser => true);
+            var users = await usersCursor.ToListAsync();
+
+            if (removeSensitiveInformations)
+            {
+                foreach (var user in users)
+                {
+                    user.Email = null;
+                }
+            }
+
+            return users;
+        }
     }
 }

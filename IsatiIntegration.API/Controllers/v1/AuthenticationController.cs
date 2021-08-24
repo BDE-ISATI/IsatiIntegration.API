@@ -33,12 +33,19 @@ namespace IsatiIntegration.API.Controllers.v1
         {
             User user = await _authenticationService.LoginAsync(loginModel.Email, loginModel.Password);
 
-            if (user == null)
+            try
             {
-                return BadRequest("The username or password is incorrect");
-            }
+                if (user == null)
+                {
+                    return BadRequest("The username or password is incorrect");
+                }
 
-            return Ok(user);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         /// <summary>

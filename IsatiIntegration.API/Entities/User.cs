@@ -22,6 +22,13 @@ namespace IsatiIntegration.API.Entities
         public string ProfilePictureId { get; set; }
 
         /// <summary>
+        /// The user's team
+        /// </summary>
+        /// <example>45d5ae0ad9221e701ceeba5b</example>
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string TeamId { get; set; }
+
+        /// <summary>
         /// The user's first name
         /// </summary>
         /// <example>Victor</example>
