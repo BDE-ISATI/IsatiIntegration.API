@@ -29,18 +29,18 @@ namespace IsatiIntegration.API.Controllers.v1
         /// <response code="200">Return the logged user with valid token</response>
         /// <returns></returns>
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginModel loginModel)
+        public async Task<ActionResult<User>> Login([FromBody] LoginModel loginModel)
         {
-            string token = await _authenticationService.LoginAsync(loginModel.Email, loginModel.Password);
+            User user = await _authenticationService.LoginAsync(loginModel.Email, loginModel.Password);
 
             try
             {
-                if (token == null)
+                if (user == null)
                 {
                     return BadRequest("The username or password is incorrect");
                 }
 
-                return Ok(token);
+                return Ok(user);
             }
             catch (Exception e)
             {
