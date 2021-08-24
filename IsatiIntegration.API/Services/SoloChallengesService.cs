@@ -36,8 +36,8 @@ namespace IsatiIntegration.API.Services
             DateTime now = DateTime.Now;
 
             var soloChallengesCursor = await _soloChallenges.FindAsync(dbSoloChallenge =>
-                dbSoloChallenge.StartingDate >= now &&
-                dbSoloChallenge.EndingDate <= now
+                dbSoloChallenge.StartingDate <= now &&
+                dbSoloChallenge.EndingDate >= now
             );
 
             return await soloChallengesCursor.ToListAsync();

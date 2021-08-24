@@ -37,13 +37,13 @@ namespace IsatiIntegration.API.Models.SoloChallenges
         /// <summary>
         /// The challenge starting date 
         /// </summary>
-        /// <example>2021-09-03T14:40:04.1351158+01:00</example>
+        /// <example>2021-08-20T08:00:00+01:00</example>
         [Required]
         public DateTime StartingDate { get; set; }
         /// <summary>
         /// The challenge ending date 
         /// </summary>
-        /// <example>2021-09-07T14:40:04.1351158+01:00</example>
+        /// <example>2021-08-20T08:00:00+01:00</example>
         [Required]
         public DateTime EndingDate { get; set; }
     }

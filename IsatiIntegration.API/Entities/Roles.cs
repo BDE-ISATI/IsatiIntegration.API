@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace IsatiIntegration.API.Entities
 {
-    public static class Roles
+    public static class Role
     {
         public const string Admin = "Admin";
         public const string Captain = "Captain";

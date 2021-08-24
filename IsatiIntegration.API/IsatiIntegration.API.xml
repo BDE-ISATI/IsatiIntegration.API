@@ -22,6 +22,68 @@
             <response code="200">Return the newly registrated user's id</response>
             <returns></returns>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloChallengesController.GetSoloChallenges">
+            <summary>
+            Get a list of solo challenges
+            </summary>
+            <response code="401">You must be logged in to get solo challenges</response>
+            <response code="200">Return the list of solo challenges for your role</response>
+            <returns></returns>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloChallengesController.CreateSoloChallenge(IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel)">
+            <summary>
+            Create a solo challenge
+            </summary>
+            <param name="creationModel"></param>
+            <response code="401">Only admins can create solo challenges</response>
+            <response code="200">Return the newly created solo challenge's id</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloChallengesController.UpdateSoloChallenge(System.String,IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel)">
+            <summary>
+            Update a solo challenge
+            </summary>
+            <param name="id"></param>
+            <param name="updateModel"></param>
+            <response code="400">The challenge doesn't already exist (wrong id)</response>
+            <response code="401">Only admins can update solo challenges</response>
+            <response code="200">The solo challges has successfully been updated</response>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloChallenge.Title">
+            <summary>
+            The challenge title
+            </summary>
+            <example>Barbecuite</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloChallenge.Description">
+            <summary>
+            The challenge description
+            </summary>
+            <example>Participer au barbecue de rentrée</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloChallenge.Value">
+            <summary>
+            The number of point the challenge will give
+            </summary>
+            <example>5</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloChallenge.NumberOfRepetitions">
+            <summary>
+            The number of time the challenge has to be done 
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloChallenge.StartingDate">
+            <summary>
+            The challenge starting date 
+            </summary>
+            <example>2021-09-03T14:40:04.1351158+01:00</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloChallenge.EndingDate">
+            <summary>
+            The challenge ending date 
+            </summary>
+            <example>2021-09-07T14:40:04.1351158+01:00</example>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.User.ProfilePictureId">
             <summary>
             The user's profile picture
@@ -56,6 +118,42 @@
             <summary>
             The user's connection token
             </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.Title">
+            <summary>
+            The challenge title
+            </summary>
+            <example>Barbecuite</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.Description">
+            <summary>
+            The challenge description
+            </summary>
+            <example>Participer au barbecue de rentrée</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.Value">
+            <summary>
+            The number of point the challenge will give
+            </summary>
+            <example>5</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.NumberOfRepetitions">
+            <summary>
+            The number of time the challenge has to be done 
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.StartingDate">
+            <summary>
+            The challenge starting date 
+            </summary>
+            <example>2021-08-20T08:00:00+01:00</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.EndingDate">
+            <summary>
+            The challenge ending date 
+            </summary>
+            <example>2021-08-20T08:00:00+01:00</example>
         </member>
         <member name="P:IsatiIntegration.API.Models.Users.LoginModel.Email">
             <summary>

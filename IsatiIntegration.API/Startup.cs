@@ -44,6 +44,7 @@ namespace IsatiIntegration.API
 
             // Services part
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ISoloChallengesService, SoloChallengesService>();
 
             // Authentiction part
             var isatiIntegrationSettings = Configuration.GetSection(nameof(IsatiIntegrationSettings)).Get<IsatiIntegrationSettings>();
@@ -129,7 +130,7 @@ namespace IsatiIntegration.API
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

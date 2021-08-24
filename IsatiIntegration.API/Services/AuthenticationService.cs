@@ -73,7 +73,7 @@ namespace IsatiIntegration.API.Services
                 PasswordHash = Convert.ToBase64String(passwordHash),
                 PasswordSalt = passwordSalt,
 
-                Role = Roles.Player // By default everyone is a player
+                Role = Role.Player // By default everyone is a player
             };
 
             await _users.InsertOneAsync(dbUser);
