@@ -31,10 +31,10 @@ namespace IsatiIntegration.API.Controllers.v1
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login([FromBody] LoginModel loginModel)
         {
-            User user = await _authenticationService.LoginAsync(loginModel.Email, loginModel.Password);
-
             try
             {
+                User user = await _authenticationService.LoginAsync(loginModel.Email, loginModel.Password);
+
                 if (user == null)
                 {
                     return BadRequest("The username or password is incorrect");
