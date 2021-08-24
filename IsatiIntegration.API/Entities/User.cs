@@ -56,11 +56,5 @@ namespace IsatiIntegration.API.Entities
         /// </summary>
         /// <example>Adoptant</example>
         public string Role { get; set; }
-
-        /// <summary>
-        /// The user's connection token
-        /// </summary>
-        [BsonIgnore]
-        public string Token { get; set; }
     }
 }

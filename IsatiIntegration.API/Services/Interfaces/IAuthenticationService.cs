@@ -9,7 +9,7 @@ namespace IsatiIntegration.API.Services.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<User> LoginAsync(string email, string password);
+        Task<string> LoginAsync(string email, string password);
         Task<string> RegisterAsync(RegisterModel registerModel);
     }
 }

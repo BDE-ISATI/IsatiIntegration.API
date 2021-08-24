@@ -30,7 +30,7 @@ namespace IsatiIntegration.API.Services
             _isatiIntegrationSettings = isatiIntegrationSettings;
         }
 
-        public async Task<User> LoginAsync(string email, string password)
+        public async Task<string> LoginAsync(string email, string password)
         {
             // We don't send exception here, the request is only
             // valid for non null values
@@ -49,9 +49,9 @@ namespace IsatiIntegration.API.Services
 
             // Since the authentication is successful, now we can
             // generate the token
-            user.Token = TokenForUser(user);
+            string token = TokenForUser(user);
 
-            return user;
+            return token;
         }
 
         public async Task<string> RegisterAsync(RegisterModel registerModel)
