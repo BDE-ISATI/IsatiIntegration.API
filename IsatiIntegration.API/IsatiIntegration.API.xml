@@ -30,6 +30,16 @@
             <response code="200">Return the list of solo challenges for your role</response>
             <returns></returns>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloChallengesController.GetImage(System.String)">
+            <summary>
+            Get the challenge image
+            </summary>
+            <param name="id"></param>
+            <response code="401">You must be logged in</response>
+            <response code="403">Only captains and admin can view proofs</response>
+            <response code="404">The challenge doesn't have any image</response>
+            <response code="200">Return the file bytes</response>
+        </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.SoloChallengesController.CreateSoloChallenge(IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel)">
             <summary>
             Create a solo challenge
@@ -375,6 +385,11 @@
         <member name="P:IsatiIntegration.API.Entities.User.Token">
             <summary>
             The user's connection token
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.ChallengeImage">
+            <summary>
+            The challenge image
             </summary>
         </member>
         <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.Title">

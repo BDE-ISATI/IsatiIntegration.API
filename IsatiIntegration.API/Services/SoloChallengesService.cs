@@ -14,12 +14,16 @@ namespace IsatiIntegration.API.Services
     {
         private readonly IMongoCollection<SoloChallenge> _soloChallenges;
 
-        public SoloChallengesService(IMongoSettings mongoSettings)
+        private readonly IFilesService _filesService;
+
+        public SoloChallengesService(IMongoSettings mongoSettings, IFilesService filesService)
         {
             var mongoClient = new MongoClient(mongoSettings.ConnectionString);
             var database = mongoClient.GetDatabase(mongoSettings.DatabaseName);
 
             _soloChallenges = database.GetCollection<SoloChallenge>(mongoSettings.SoloChallengesCollectionName);
+
+            _filesService = filesService;
         }
 
         public async Task<List<SoloChallenge>> GetChallengeFromAdmin()
@@ -43,6 +47,14 @@ namespace IsatiIntegration.API.Services
             return await soloChallengesCursor.ToListAsync();
         }
 
+        public async Task<byte[]> GetChallengeImage(string id)
+        {
+            var image = await _filesService.GetFileByName($"solo_challenge_{id}");
+
+            if (image == null) return null;
+
+            return image.Data;
+        }
         public async Task<string> CreateChallenge(SoloChallengeModel toCreate)
         {
             SoloChallenge soloChallenge = new()
@@ -58,6 +70,11 @@ namespace IsatiIntegration.API.Services
             };
 
             await _soloChallenges.InsertOneAsync(soloChallenge);
+
+            if (toCreate.ChallengeImage != null)
+            {
+                await UpdateChallengeImage(soloChallenge.Id, toCreate.ChallengeImage);
+            }
 
             return soloChallenge.Id;
 
@@ -82,6 +99,16 @@ namespace IsatiIntegration.API.Services
                 dbSoloChallenge.Id == id,
                 update
             );
+
+            if (toUpdate.ChallengeImage != null)
+            {
+                await UpdateChallengeImage(id, toUpdate.ChallengeImage);
+            }
+        }
+
+        private async Task UpdateChallengeImage(string id, byte[] data)
+        {
+            await _filesService.UploadFile($"solo_challenge_{id}", data);
         }
 
         private bool SoloChallengeExist(string id)

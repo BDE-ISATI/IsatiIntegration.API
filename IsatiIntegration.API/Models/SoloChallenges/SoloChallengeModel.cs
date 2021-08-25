@@ -9,6 +9,11 @@ namespace IsatiIntegration.API.Models.SoloChallenges
     public class SoloChallengeModel
     {
         /// <summary>
+        /// The challenge image
+        /// </summary>
+        public byte[] ChallengeImage { get; set; }
+
+        /// <summary>
         /// The challenge title
         /// </summary>
         /// <example>Barbecuite</example>
