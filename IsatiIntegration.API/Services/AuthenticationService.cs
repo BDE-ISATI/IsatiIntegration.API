@@ -74,7 +74,8 @@ namespace IsatiIntegration.API.Services
                 PasswordHash = Convert.ToBase64String(passwordHash),
                 PasswordSalt = passwordSalt,
 
-                Role = Role.Player // By default everyone is a player
+                Role = Role.Player, // By default everyone is a player
+                Score = 0
             };
 
             await _users.InsertOneAsync(dbUser);
@@ -131,7 +132,7 @@ namespace IsatiIntegration.API.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(20),

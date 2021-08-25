@@ -22,6 +22,12 @@ namespace IsatiIntegration.API.Entities
         public string CaptainId { get; set; }
 
         /// <summary>
+        /// The team score
+        /// </summary>
+        /// <example>4</example>
+        public int Score { get; set; }
+
+        /// <summary>
         /// The team name
         /// </summary>
         /// <example>Isatirebouchon</example>

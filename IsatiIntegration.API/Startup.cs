@@ -47,6 +47,8 @@ namespace IsatiIntegration.API
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<ITeamsService, TeamsService>();
             services.AddScoped<ISoloChallengesService, SoloChallengesService>();
+            services.AddScoped<ISoloValidationsService, SoloValidationsService>();
+            services.AddScoped<IFilesService, FilesService>();
 
             // Authentiction part
             var isatiIntegrationSettings = Configuration.GetSection(nameof(IsatiIntegrationSettings)).Get<IsatiIntegrationSettings>();

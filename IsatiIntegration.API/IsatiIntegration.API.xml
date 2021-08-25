@@ -48,6 +48,51 @@
             <response code="401">Only admins can update solo challenges</response>
             <response code="200">The solo challges has successfully been updated</response>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloValidationsController.GetValidations">
+            <summary>
+            Get validations for solo challenge
+            </summary>
+            <response code="400">Their was an error during the request</response>
+            <response code="401">You must be logged in</response>
+            <response code="200">Return the validations accessible to the user</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloValidationsController.GetFile(System.String)">
+            <summary>
+            Get a file for a solo challenge
+            </summary>
+            <param name="fileId"></param>
+            <response code="401">You must be logged in</response>
+            <response code="403">Only captains and admin can view proofs</response>
+            <response code="200">Return the file bytes</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloValidationsController.SubmitValidation(IsatiIntegration.API.Models.SoloValidations.SoloValidationSubmitModel)">
+            <summary>
+            Submit a validation for a solo challenge
+            </summary>
+            <param name="submitModel"></param>
+            <response code="400">The validation is invalid</response>
+            <response code="401">You must be logged in</response>
+            <response code="200">The validation has been submitted</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloValidationsController.AcceptValidation(System.String,IsatiIntegration.API.Models.SoloValidations.SoloValidationValidateModel)">
+            <summary>
+            Mark a solo validation as accepted
+            </summary>
+            <param name="id"></param>
+            <param name="acceptModel"></param>
+            <response code="400">Their was an error during the validation</response>
+            <response code="401">You must be logged in</response>
+            <response code="200">The validation is now accepted</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.SoloValidationsController.RejectValidation(System.String)">
+            <summary>
+            Mark a solo validation as rejected
+            </summary>
+            <param name="id"></param>
+            <response code="400">Their was an error during the validation</response>
+            <response code="401">You must be logged in</response>
+            <response code="200">The validation is now rejected</response>
+        </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.GetTeams">
             <summary>
             Get all teams
@@ -135,11 +180,46 @@
             </summary>
             <example>2021-09-07T14:40:04.1351158+01:00</example>
         </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloValidation.SoloValidation.ChallengeId">
+            <summary>
+            The challenge corresponding to the validation
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloValidation.SoloValidation.UserId">
+            <summary>
+            The user submitting the validation
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloValidation.SoloValidation.TeamId">
+            <summary>
+            The user's team 
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloValidation.SoloValidation.Status">
+            <summary>
+            The validation status. Can be "Waiting", "Validated" or "Rejected"
+            </summary>
+            <example>Waiting</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.SoloValidation.SoloValidation.FilesIds">
+            <summary>
+            The list of files associated with this validation
+            </summary>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.Team.CaptainId">
             <summary>
             The team captain
             </summary>
             <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Team.Score">
+            <summary>
+            The team score
+            </summary>
+            <example>4</example>
         </member>
         <member name="P:IsatiIntegration.API.Entities.Team.Name">
             <summary>
@@ -189,6 +269,11 @@
             </summary>
             <example>Adoptant</example>
         </member>
+        <member name="P:IsatiIntegration.API.Entities.User.Score">
+            <summary>
+            The user score
+            </summary>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.User.Token">
             <summary>
             The user's connection token
@@ -229,6 +314,23 @@
             The challenge ending date 
             </summary>
             <example>2021-08-20T08:00:00+01:00</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloValidations.SoloValidationSubmitModel.ChallengeId">
+            <summary>
+            The challenge corresponding to the validation
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloValidations.SoloValidationSubmitModel.Files">
+            <summary>
+            The list of files associated with this validation
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.SoloValidations.SoloValidationValidateModel.ExtraPoints">
+            <summary>
+            Add some extra points to the user
+            </summary>
+            <example>10</example>
         </member>
         <member name="P:IsatiIntegration.API.Models.Users.LoginModel.Email">
             <summary>

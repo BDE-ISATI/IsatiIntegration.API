@@ -57,6 +57,11 @@ namespace IsatiIntegration.API.Entities
         /// <example>Adoptant</example>
         public string Role { get; set; }
 
+        /// <summary>
+        /// The user score
+        /// </summary>
+        public int Score { get; set; }
+
 
         /// <summary>
         /// The user's connection token
