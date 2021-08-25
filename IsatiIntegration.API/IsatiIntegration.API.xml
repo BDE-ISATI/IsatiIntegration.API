@@ -93,6 +93,32 @@
             <response code="401">You must be logged in</response>
             <response code="200">The validation is now rejected</response>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamChallengesController.GetTeamChallenges">
+            <summary>
+            Get a list of team challenges
+            </summary>
+            <response code="401">You must be logged in to get team challenges</response>
+            <response code="200">Return the list of team challenges for your role</response>
+            <returns></returns>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamChallengesController.CreateTeamChallenge(IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel)">
+            <summary>
+            Create a team challenge
+            </summary>
+            <param name="creationModel"></param>
+            <response code="401">Only admins can create team challenges</response>
+            <response code="200">Return the newly created team challenge's id</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamChallengesController.UpdateTeamChallenge(System.String,IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel)">
+            <summary>
+            Update a team challenge
+            </summary>
+            <param name="id"></param>
+            <param name="updateModel"></param>
+            <response code="400">The challenge doesn't already exist (wrong id)</response>
+            <response code="401">Only admins can update team challenges</response>
+            <response code="200">The team challenges has successfully been updated</response>
+        </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.GetTeams">
             <summary>
             Get all teams
@@ -233,6 +259,49 @@
             </summary>
             <example>#f70c35</example>
         </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.Title">
+            <summary>
+            The challenge title
+            </summary>
+            <example>Barbecuite</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.Description">
+            <summary>
+            The challenge description
+            </summary>
+            <example>Participer au barbecue de rentrée</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.Value">
+            <summary>
+            The number of point the challenge will give
+            </summary>
+            <example>5</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.NumberOfRepetitions">
+            <summary>
+            The number of time the challenge has to be done 
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.ShouldCountMembers">
+            <summary>
+            Wheras we should indicate a member number 
+            for points
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.StartingDate">
+            <summary>
+            The challenge starting date 
+            </summary>
+            <example>2021-09-03T14:40:04.1351158+01:00</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamChallenge.EndingDate">
+            <summary>
+            The challenge ending date 
+            </summary>
+            <example>2021-09-07T14:40:04.1351158+01:00</example>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.User.ProfilePictureId">
             <summary>
             The user's profile picture
@@ -331,6 +400,49 @@
             Add some extra points to the user
             </summary>
             <example>10</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.Title">
+            <summary>
+            The challenge title
+            </summary>
+            <example>Barbecuite</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.Description">
+            <summary>
+            The challenge description
+            </summary>
+            <example>Participer au barbecue de rentrée</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.Value">
+            <summary>
+            The number of point the challenge will give
+            </summary>
+            <example>5</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.NumberOfRepetitions">
+            <summary>
+            The number of time the challenge has to be done 
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.ShouldCountMembers">
+            <summary>
+            Wheras we should indicate a member number 
+            for points
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.StartingDate">
+            <summary>
+            The challenge starting date 
+            </summary>
+            <example>2021-09-03T14:40:04.1351158+01:00</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamChallenges.TeamChallengeModel.EndingDate">
+            <summary>
+            The challenge ending date 
+            </summary>
+            <example>2021-09-07T14:40:04.1351158+01:00</example>
         </member>
         <member name="P:IsatiIntegration.API.Models.Users.LoginModel.Email">
             <summary>
