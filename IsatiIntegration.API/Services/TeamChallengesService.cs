@@ -14,12 +14,16 @@ namespace IsatiIntegration.API.Services
     {
         private readonly IMongoCollection<TeamChallenge> _teamChallenges;
 
-        public TeamChallengesService(IMongoSettings mongoSettings)
+        private readonly IFilesService _filesService;
+
+        public TeamChallengesService(IMongoSettings mongoSettings, IFilesService filesService)
         {
             var mongoClient = new MongoClient(mongoSettings.ConnectionString);
             var database = mongoClient.GetDatabase(mongoSettings.DatabaseName);
 
             _teamChallenges = database.GetCollection<TeamChallenge>(mongoSettings.TeamChallengesCollectionName);
+
+            _filesService = filesService;
         }
 
         public async Task<List<TeamChallenge>> GetChallengeFromAdmin()
@@ -43,6 +47,15 @@ namespace IsatiIntegration.API.Services
             return await teamChallengesCursor.ToListAsync();
         }
 
+        public async Task<byte[]> GetChallengeImage(string id)
+        {
+            var image = await _filesService.GetFileByName($"team_challenge_{id}");
+
+            if (image == null) return null;
+
+            return image.Data;
+        }
+
         public async Task<string> CreateChallenge(TeamChallengeModel toCreate)
         {
             TeamChallenge teamChallenge = new()
@@ -59,6 +72,12 @@ namespace IsatiIntegration.API.Services
             };
 
             await _teamChallenges.InsertOneAsync(teamChallenge);
+
+            if (toCreate.ChallengeImage != null)
+            {
+                await UpdateChallengeImage(teamChallenge.Id, toCreate.ChallengeImage);
+            }
+
 
             return teamChallenge.Id;
 
@@ -84,6 +103,17 @@ namespace IsatiIntegration.API.Services
                 dbTeamChallenge.Id == id,
                 update
             );
+
+            if (toUpdate.ChallengeImage != null)
+            {
+                await UpdateChallengeImage(id, toUpdate.ChallengeImage);
+            }
+
+        }
+
+        private async Task UpdateChallengeImage(string id, byte[] data)
+        {
+            await _filesService.UploadFile($"team_challenge_{id}", data);
         }
 
         private bool TeamChallengeExist(string id)

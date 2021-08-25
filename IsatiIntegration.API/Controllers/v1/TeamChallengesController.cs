@@ -45,6 +45,26 @@ namespace IsatiIntegration.API.Controllers.v1
         }
 
         /// <summary>
+        /// Get the challenge image
+        /// </summary>
+        /// <param name="id"></param>
+        /// <response code="401">You must be logged in</response>
+        /// <response code="404">The challenge doesn't have any image</response>
+        /// <response code="200">Return the file bytes</response>
+        [HttpGet("{id:length(24)}/image")]
+        public async Task<ActionResult<byte[]>> GetImage(string id)
+        {
+            var file = await _teamChallengesService.GetChallengeImage(id);
+
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(file);
+        }
+
+        /// <summary>
         /// Create a team challenge
         /// </summary>
         /// <param name="creationModel"></param>

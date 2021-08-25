@@ -12,6 +12,8 @@ namespace IsatiIntegration.API.Services.Interfaces
         Task<List<TeamChallenge>> GetChallengeFromAdmin();
         Task<List<TeamChallenge>> GetChallengeFromPlayer();
 
+        Task<byte[]> GetChallengeImage(string id);
+        
         Task<string> CreateChallenge(TeamChallengeModel toCreate);
 
         Task UpdateChallenge(string id, TeamChallengeModel toUpdate);

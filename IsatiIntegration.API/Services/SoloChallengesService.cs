@@ -55,6 +55,7 @@ namespace IsatiIntegration.API.Services
 
             return image.Data;
         }
+
         public async Task<string> CreateChallenge(SoloChallengeModel toCreate)
         {
             SoloChallenge soloChallenge = new()
