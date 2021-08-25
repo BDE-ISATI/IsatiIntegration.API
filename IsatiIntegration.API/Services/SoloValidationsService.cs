@@ -109,12 +109,16 @@ namespace IsatiIntegration.API.Services
         public async Task ValidateSoloConfirmation(string id, SoloValidationValidateModel validateModel)
         {
             var validation = await GetValidationFromId(id);
-
             if (validation == null) throw new Exception("The validation doesn't exist in the database");
 
             var challenge = await GetChallengeFromId(validation.ChallengeId);
-
             if (challenge == null) throw new Exception("The corresponding challenge doesn't exist");
+
+            var user = await GetUserFromId(validation.UserId);
+            if (user == null) throw new Exception("The user doesn't exist");
+
+            var team = await GetTeamFromId(validation.TeamId);
+            if (team == null) throw new Exception("The team doesn't exist");
 
             validation.Status = SoloValidationStatus.Validated;
 
@@ -122,9 +126,9 @@ namespace IsatiIntegration.API.Services
 
             // We must add points to the user and team score
             var userUpdate = Builders<User>.Update
-                .Set(dbUser => dbUser.Score, challenge.Value + validateModel.ExtraPoints);
+                .Set(dbUser => dbUser.Score, user.Score + challenge.Value + validateModel.ExtraPoints);
             var teamUpdate = Builders<Team>.Update
-                .Set(dbTeam => dbTeam.Score, challenge.Value + validateModel.ExtraPoints);
+                .Set(dbTeam => dbTeam.Score, team.Score + challenge.Value + validateModel.ExtraPoints);
 
             await _users.UpdateOneAsync(dbUser => dbUser.Id == validation.UserId, userUpdate);
             await _teams.UpdateOneAsync(dbTeam => dbTeam.Id == validation.TeamId, teamUpdate);

@@ -54,6 +54,9 @@ namespace IsatiIntegration.API.Services
 
             if (challenge == null) throw new Exception("The corresponding challenge doesn't exist");
 
+            var team = await GetTeamFromId(validateModel.TeamId);
+            if (team == null) throw new Exception("The team doesn't exist");
+
             await _validations.InsertOneAsync(new()
             {
                 ChallengeId = validateModel.ChallengeId,
@@ -69,7 +72,7 @@ namespace IsatiIntegration.API.Services
 
             // We must add points to team score
             var teamUpdate = Builders<Team>.Update
-                .Set(dbTeam => dbTeam.Score, pointsToAdd + validateModel.ExtraPoints);
+                .Set(dbTeam => dbTeam.Score, team.Score + pointsToAdd + validateModel.ExtraPoints);
 
             await _teams.UpdateOneAsync(dbTeam => dbTeam.Id == validateModel.TeamId, teamUpdate);
 
@@ -91,6 +94,15 @@ namespace IsatiIntegration.API.Services
             );
 
             return await userCursor.FirstOrDefaultAsync();
+        }
+
+        private async Task<Team> GetTeamFromId(string id)
+        {
+            var teamCursor = await _teams.FindAsync(dbTeam =>
+                dbTeam.Id == id
+            );
+
+            return await teamCursor.FirstOrDefaultAsync();
         }
 
         private async Task<TeamValidation> GetValidationFromId(string id)
