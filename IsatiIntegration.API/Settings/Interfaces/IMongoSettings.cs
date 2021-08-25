@@ -13,6 +13,7 @@ namespace IsatiIntegration.API.Settings.Interfaces
         string SoloChallengesCollectionName { get; set; }
         string SoloValidationsCollectionName { get; set; }
         string TeamChallengesCollectionName { get; set; }
+        string TeamValidationsCollectionName { get; set; }
 
         // The database informations
         string ConnectionString { get; set; }

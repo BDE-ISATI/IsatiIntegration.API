@@ -154,6 +154,23 @@
             <response code="403">Only admin can update teams</response>
             <response code="200">The team has been successfully updated</response>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamValidationsController.GetValidations">
+            <summary>
+            Get validations for team challenge
+            </summary>
+            <response code="400">Their was an error during the request</response>
+            <response code="401">You must be logged in</response>
+            <response code="200">Return the validations accessible to the user</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamValidationsController.AcceptValidation(IsatiIntegration.API.Models.TeamValidations.TeamValidationSubmitModel)">
+            <summary>
+            Mark a solo validation as accepted
+            </summary>
+            <param name="acceptModel"></param>
+            <response code="400">Their was an error during the validation</response>
+            <response code="401">You must be logged in</response>
+            <response code="200">The validation is now accepted</response>
+        </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.GetUsers">
             <summary>
             Get all users of the application
@@ -302,6 +319,18 @@
             </summary>
             <example>2021-09-07T14:40:04.1351158+01:00</example>
         </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamValidation.ChallengeId">
+            <summary>
+            The challenge corresponding to the validation
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.TeamValidation.TeamId">
+            <summary>
+            The user's team 
+            </summary>
+            <example>5f1fe90a58c8ab093c4f772a</example>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.User.ProfilePictureId">
             <summary>
             The user's profile picture
@@ -443,6 +472,30 @@
             The challenge ending date 
             </summary>
             <example>2021-09-07T14:40:04.1351158+01:00</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamValidations.TeamValidationSubmitModel.ChallengeId">
+            <summary>
+            The challenge to validate
+            </summary>
+            <example>45d5ae0ad9221e701ceeba5b</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamValidations.TeamValidationSubmitModel.TeamId">
+            <summary>
+            The team to give points
+            </summary>
+            <example>45d5ae0ad9221e701ceeba5b</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamValidations.TeamValidationSubmitModel.ExtraPoints">
+            <summary>
+            Add some extra points to the team
+            </summary>
+            <example>10</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.TeamValidations.TeamValidationSubmitModel.MembersCount">
+            <summary>
+            Specify a number of member
+            </summary>
+            <example>3</example>
         </member>
         <member name="P:IsatiIntegration.API.Models.Users.LoginModel.Email">
             <summary>
