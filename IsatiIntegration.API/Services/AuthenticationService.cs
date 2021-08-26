@@ -30,6 +30,7 @@ namespace IsatiIntegration.API.Services
             _users = database.GetCollection<User>(mongoSettings.UsersCollectionName);
 
             _isatiIntegrationSettings = isatiIntegrationSettings;
+            _usersService = usersService;
         }
 
         public async Task<User> LoginAsync(string email, string password)

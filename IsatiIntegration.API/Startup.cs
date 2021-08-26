@@ -50,6 +50,7 @@ namespace IsatiIntegration.API
             services.AddScoped<ISoloValidationsService, SoloValidationsService>();
             services.AddScoped<ITeamChallengesService, TeamChallengesService>();
             services.AddScoped<ITeamValidationsService, TeamValidationsService>();
+            services.AddScoped<IFormsService, FormsService>();
             services.AddScoped<IFilesService, FilesService>();
 
             // Authentiction part

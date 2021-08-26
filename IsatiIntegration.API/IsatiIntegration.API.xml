@@ -22,6 +22,32 @@
             <response code="200">Return the newly registrated user's id</response>
             <returns></returns>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.FormsController.GetFormForUser(System.String)">
+            <summary>
+            Get the form of a user
+            </summary>
+            <param name="userId"></param>
+            <response code="401">You must be logged in</response>
+            <response code="403">Only admins can see forms</response>
+            <response code="200">Return the form</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.FormsController.GetDrawing(System.String)">
+            <summary>
+            Get a drawing from a form
+            </summary>
+            <param name="id"></param>
+            <response code="401">You must be logged in</response>
+            <response code="403">Only admins can view drawing</response>
+            <response code="200">Return the drawing</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.FormsController.SubmitForm(System.String,IsatiIntegration.API.Models.Form.FormSubmitModel)">
+            <summary>
+            Submit a form
+            </summary>
+            <param name="userId"></param>
+            <param name="submitModel"></param>
+            <response code="200">Your form has been submitted</response>
+        </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.SoloChallengesController.GetSoloChallenges">
             <summary>
             Get a list of solo challenges
@@ -225,6 +251,55 @@
             <response code="403">You don't have the rights to update this user</response>
             <response code="200">The user has successfully been updated</response>
         </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.Form.UserId">
+            <summary>
+            The user who filled the form
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.Form.TotalScore">
+            <summary>
+            The full score of the form
+            </summary>
+            <example>34</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.Form.Drawing1Id">
+            <summary>
+            File id of the first drawing
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.Form.Drawing2Id">
+            <summary>
+            File id of the second drawing
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.Form.Drawing3Id">
+            <summary>
+            File id of the third drawing
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.Form.QAs">
+            <summary>
+            All the questions/answer of the form
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.FormQA.Question">
+            <summary>
+            The question asked
+            </summary>
+            <example>Un mot qui te décrirait ?</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.FormQA.Answer">
+            <summary>
+            The question answered
+            </summary>
+            <example>Je suis une API REST !</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Entities.Form.FormQA.Value">
+            <summary>
+            The number of points this answer give
+            </summary>
+            <example>4</example>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.SoloChallenge.Title">
             <summary>
             The challenge title
@@ -407,6 +482,26 @@
         <member name="P:IsatiIntegration.API.Entities.User.Token">
             <summary>
             The user's connection token
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Form.FormSubmitModel.Drawing1">
+            <summary>
+            The first drawing
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Form.FormSubmitModel.Drawing2">
+            <summary>
+            The second drawing
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Form.FormSubmitModel.Drawing3">
+            <summary>
+            The third drawing
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Form.FormSubmitModel.QAs">
+            <summary>
+            All the questions/answer of the form
             </summary>
         </member>
         <member name="P:IsatiIntegration.API.Models.SoloChallenges.SoloChallengeModel.ChallengeImage">
