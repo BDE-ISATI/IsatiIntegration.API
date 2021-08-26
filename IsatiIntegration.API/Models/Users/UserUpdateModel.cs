@@ -2,17 +2,19 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace IsatiIntegration.API.Entities
+namespace IsatiIntegration.API.Models.Users
 {
-    public class User
+    public class UserUpdateModel
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+
+        /// <summary>
+        /// A new user profile picture
+        /// </summary>
+        public byte[] ProfilePicture { get; set; }
 
         /// <summary>
         /// The user's team
@@ -25,41 +27,39 @@ namespace IsatiIntegration.API.Entities
         /// The user's first name
         /// </summary>
         /// <example>Victor</example>
+        [Required]
         public string FirstName { get; set; }
         /// <summary>
         /// The user's last name
         /// </summary>
         /// <example>DENIS</example>
+        [Required]
         public string LastName { get; set; }
 
         /// <summary>
         /// The user's email
         /// </summary>
         /// <example>admin@feldrise.com</example>
+        [Required]
         public string Email { get; set; }
 
-        // Authentication related
-        [JsonIgnore]
-        public string PasswordHash { get; set; }
-        [JsonIgnore]
-        public byte[] PasswordSalt { get; set; }
+        /// <summary>
+        /// The new user password
+        /// </summary>
+        public string Password { get; set; }
 
         /// <summary>
         /// The user's role. The roles are : Admin, Captain, Player
         /// </summary>
         /// <example>Adoptant</example>
+        [Required]
         public string Role { get; set; }
 
         /// <summary>
         /// The user score
         /// </summary>
+        [Required]
         public int Score { get; set; }
 
-
-        /// <summary>
-        /// The user's connection token
-        /// </summary>
-        [BsonIgnore]
-        public string Token { get; set; }
     }
 }

@@ -20,7 +20,9 @@ namespace IsatiIntegration.API.Services
 
         private readonly IIsatiIntegrationSettings _isatiIntegrationSettings;
 
-        public AuthenticationService(IMongoSettings mongoSettings, IIsatiIntegrationSettings isatiIntegrationSettings)
+        private readonly IUsersService _usersService;
+
+        public AuthenticationService(IMongoSettings mongoSettings, IIsatiIntegrationSettings isatiIntegrationSettings, IUsersService usersService)
         {
             var mongoClient = new MongoClient(mongoSettings.ConnectionString);
             var database = mongoClient.GetDatabase(mongoSettings.DatabaseName);
@@ -58,7 +60,7 @@ namespace IsatiIntegration.API.Services
         {
             // We need some basic checks
             if (string.IsNullOrWhiteSpace(registerModel.Email)) { throw new Exception("An email is required for the registration"); }
-            if (UserExist(registerModel.Email)) { throw new Exception("The user already exist"); }
+            if (_usersService.UserExist(registerModel.Email)) { throw new Exception("The user already exist"); }
 
             // Password stuff, to ensure we never have clear password stored
             CreatePasswordHash(registerModel.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -80,18 +82,17 @@ namespace IsatiIntegration.API.Services
 
             await _users.InsertOneAsync(dbUser);
 
+            if (registerModel.ProfilePicture != null)
+            {
+                await _usersService.UpdateProfilePicture(dbUser.Id, registerModel.ProfilePicture);
+            }
+
             return dbUser.Id;
         }
 
-        private bool UserExist(string email)
-        {
-            return _users.AsQueryable().Any(dbUser =>
-                dbUser.Email == email.ToLower()
-            );
-        }
 
         // Password related functions
-        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (string.IsNullOrWhiteSpace(password)) { throw new Exception("The password must not be null or empty"); }
 

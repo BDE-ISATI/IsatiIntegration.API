@@ -205,6 +205,26 @@
             <response code="404">The user doesn't exist</response>
             <response code="200">Return the user corresponding to the given id</response>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.GetProfilePicture(System.String)">
+            <summary>
+            Get the user's profile picture
+            </summary>
+            <param name="id"></param>
+            <response code="401">You must be logged in</response>
+            <response code="404">The user doesn't have any profile pictue</response>
+            <response code="200">Return the file bytes</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.UpdateUser(System.String,IsatiIntegration.API.Models.Users.UserUpdateModel)">
+            <summary>
+            Update a iser
+            </summary>
+            <param name="id"></param>
+            <param name="updateModel"></param>
+            <response code="400">You can't update this user this way</response>
+            <response code="401">You must be logged in</response>
+            <response code="403">You don't have the rights to update this user</response>
+            <response code="200">The user has successfully been updated</response>
+        </member>
         <member name="P:IsatiIntegration.API.Entities.SoloChallenge.Title">
             <summary>
             The challenge title
@@ -348,12 +368,6 @@
             The user's team 
             </summary>
             <example>5f1fe90a58c8ab093c4f772a</example>
-        </member>
-        <member name="P:IsatiIntegration.API.Entities.User.ProfilePictureId">
-            <summary>
-            The user's profile picture
-            </summary>
-            <example>45d5ae0ad9221e701ceeba5b</example>
         </member>
         <member name="P:IsatiIntegration.API.Entities.User.TeamId">
             <summary>
@@ -565,6 +579,51 @@
             The user's password
             </summary>
             <example>MySuperSecurePassword</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.ProfilePicture">
+            <summary>
+            A new user profile picture
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.TeamId">
+            <summary>
+            The user's team
+            </summary>
+            <example>45d5ae0ad9221e701ceeba5b</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.FirstName">
+            <summary>
+            The user's first name
+            </summary>
+            <example>Victor</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.LastName">
+            <summary>
+            The user's last name
+            </summary>
+            <example>DENIS</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.Email">
+            <summary>
+            The user's email
+            </summary>
+            <example>admin@feldrise.com</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.Password">
+            <summary>
+            The new user password
+            </summary>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.Role">
+            <summary>
+            The user's role. The roles are : Admin, Captain, Player
+            </summary>
+            <example>Adoptant</example>
+        </member>
+        <member name="P:IsatiIntegration.API.Models.Users.UserUpdateModel.Score">
+            <summary>
+            The user score
+            </summary>
         </member>
     </members>
 </doc>

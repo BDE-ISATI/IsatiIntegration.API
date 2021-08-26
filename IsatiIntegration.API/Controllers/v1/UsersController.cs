@@ -1,4 +1,5 @@
 ﻿using IsatiIntegration.API.Entities;
+using IsatiIntegration.API.Models.Users;
 using IsatiIntegration.API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -63,6 +64,61 @@ namespace IsatiIntegration.API.Controllers.v1
             }
 
             return NotFound();
+        }
+
+        /// <summary>
+        /// Get the user's profile picture
+        /// </summary>
+        /// <param name="id"></param>
+        /// <response code="401">You must be logged in</response>
+        /// <response code="404">The user doesn't have any profile pictue</response>
+        /// <response code="200">Return the file bytes</response>
+        [HttpGet("{id:length(24)}/profile_picture")]
+        public async Task<ActionResult<byte[]>> GetProfilePicture(string id)
+        {
+            var file = await _usersService.GetProfilePicture(id);
+
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(file);
+        }
+
+        /// <summary>
+        /// Update a iser
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateModel"></param>
+        /// <response code="400">You can't update this user this way</response>
+        /// <response code="401">You must be logged in</response>
+        /// <response code="403">You don't have the rights to update this user</response>
+        /// <response code="200">The user has successfully been updated</response>
+        [HttpPut("{id:length(24)}")]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] UserUpdateModel updateModel)
+        {
+            try
+            {
+                if (User.IsInRole(Role.Admin))
+                {
+                    await _usersService.UpdateUserFromAdmin(id, updateModel);
+                }
+                else if (id == User.Identity.Name)
+                {
+                    await _usersService.UpdateUserFromSelf(id, updateModel);
+                }
+                else
+                {
+                    return Forbid();
+                }
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Error during the request: {e.Message}");
+            }
         }
     }
 }
