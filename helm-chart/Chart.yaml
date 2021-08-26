@@ -1,0 +1,4 @@
+apiVersion: v1
+description: The Helm chart for the ISATI integration API
+name: isati-integration-api
+version: 1.0.3
