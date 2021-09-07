@@ -16,6 +16,7 @@ namespace IsatiIntegration.API.Settings
         public string SoloValidationsCollectionName { get; set; }
         public string TeamChallengesCollectionName { get; set; }
         public string TeamValidationsCollectionName { get; set; }
+        public string AppSettingsCollectionName { get; set; }
 
 
         // The database informations

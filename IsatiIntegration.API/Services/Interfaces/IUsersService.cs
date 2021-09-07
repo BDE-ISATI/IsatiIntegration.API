@@ -13,6 +13,9 @@ namespace IsatiIntegration.API.Services.Interfaces
         Task<User> GetSensitiveUser(string id);
         Task<List<User>> GetAllUsers(bool removeSensitiveInformation = true);
 
+        Task<List<User>> GetRankedUsersForUser();
+        Task<List<User>> GetRankedUsersForAdmin();
+
         Task<byte[]> GetProfilePicture(string id);
 
         Task UpdateUserFromAdmin(string id, UserUpdateModel updateModel);

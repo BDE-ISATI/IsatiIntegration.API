@@ -37,6 +37,28 @@ namespace IsatiIntegration.API.Controllers.v1
         }
 
         /// <summary>
+        /// Get all users ordered by score
+        /// </summary>
+        /// <response code="401">You must be logged in to see ranking</response>
+        /// <response code="200">Return the users ordered by score</response>
+        [HttpGet("ranked")]
+        public async Task<ActionResult<List<User>>> GetRankedUsers()
+        {
+            List<User> users;
+
+            if (User.IsInRole(Role.Player))
+            {
+                users = await _usersService.GetRankedUsersForUser();
+            }
+            else
+            {
+                users = await _usersService.GetRankedUsersForAdmin();
+            }
+
+            return users;
+        }
+
+        /// <summary>
         /// Get a specific user
         /// </summary>
         /// <param name="id"></param>

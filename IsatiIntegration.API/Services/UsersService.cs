@@ -2,6 +2,7 @@
 using IsatiIntegration.API.Models.Users;
 using IsatiIntegration.API.Services.Interfaces;
 using IsatiIntegration.API.Settings.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace IsatiIntegration.API.Services
     public class UsersService : IUsersService
     {
         private readonly IMongoCollection<User> _users;
+        private readonly IMongoCollection<AppSettings> _appSettings;
 
         private readonly IFilesService _filesService;
 
@@ -22,6 +24,7 @@ namespace IsatiIntegration.API.Services
             var database = mongoClient.GetDatabase(mongoSettings.DatabaseName);
 
             _users = database.GetCollection<User>(mongoSettings.UsersCollectionName);
+            _appSettings = database.GetCollection<AppSettings>(mongoSettings.AppSettingsCollectionName);
 
             _filesService = filesService;
         }
@@ -59,6 +62,35 @@ namespace IsatiIntegration.API.Services
 
             return users;
         }
+
+        public async Task<List<User>> GetRankedUsersForUser()
+        {
+            var appSettingsCursor = await _appSettings.FindAsync(dbAppSettings => true);
+            var appSettings = await appSettingsCursor.FirstOrDefaultAsync();
+            var showRanking = false;
+
+            if (appSettings != null)
+            {
+                showRanking = appSettings.ShowUsersRanking;
+            }
+
+            if (!showRanking)
+            {
+                return new List<User>();
+            }
+
+            var sortedUsers = await _users.Find(user => user.Role == Role.Player).Sort(new BsonDocument("Score", -1)).ToListAsync();
+
+            return sortedUsers;
+        }
+
+        public async Task<List<User>> GetRankedUsersForAdmin()
+        {
+            var sortedUsers = await _users.Find(user => user.Role == Role.Player).Sort(new BsonDocument("Score", -1)).ToListAsync();
+
+            return sortedUsers;
+        }
+
 
         public async Task<byte[]> GetProfilePicture(string id)
         {

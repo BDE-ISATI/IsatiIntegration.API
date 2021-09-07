@@ -11,6 +11,9 @@ namespace IsatiIntegration.API.Services.Interfaces
         Task<Team> GetTeam(string id);
         Task<List<Team>> GetTeams();
 
+        Task<List<Team>> GetRankedTeamsForUser();
+        Task<List<Team>> GetRankedTeamsForAdmin();
+
         Task<string> CreateTeam(Team toCreate);
         Task UpdateTeam(string id, Team toUpdate);
 

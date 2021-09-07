@@ -170,6 +170,13 @@
             <response code="401">You must be logged in</response>
             <response code="200">Return a list of the teams</response>
         </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.GetRankedTeams">
+            <summary>
+            Get all teams ordered by score
+            </summary>
+            <response code="401">You must be logged in to see ranking</response>
+            <response code="200">Return the teams ordered by score</response>
+        </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.TeamsController.GetTeam(System.String)">
             <summary>
             Get a team
@@ -221,6 +228,13 @@
             </summary>
             <response code="401">You must be logged in</response>
             <response code="200">Return the list of application's users</response>
+        </member>
+        <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.GetRankedUsers">
+            <summary>
+            Get all users ordered by score
+            </summary>
+            <response code="401">You must be logged in to see ranking</response>
+            <response code="200">Return the users ordered by score</response>
         </member>
         <member name="M:IsatiIntegration.API.Controllers.v1.UsersController.GetUser(System.String)">
             <summary>

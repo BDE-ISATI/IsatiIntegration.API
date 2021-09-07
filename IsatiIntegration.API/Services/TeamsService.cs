@@ -1,6 +1,7 @@
 ﻿using IsatiIntegration.API.Entities;
 using IsatiIntegration.API.Services.Interfaces;
 using IsatiIntegration.API.Settings.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace IsatiIntegration.API.Services
     {
         private readonly IMongoCollection<Team> _teams;
         private readonly IMongoCollection<User> _users;
+        private readonly IMongoCollection<AppSettings> _appSettings;
 
         public TeamsService(IMongoSettings mongoSettings)
         {
@@ -21,6 +23,7 @@ namespace IsatiIntegration.API.Services
 
             _teams = database.GetCollection<Team>(mongoSettings.TeamsCollectionName);
             _users = database.GetCollection<User>(mongoSettings.UsersCollectionName);
+            _appSettings = database.GetCollection<AppSettings>(mongoSettings.AppSettingsCollectionName);
         }
 
         public async Task<Team> GetTeam(string id)
@@ -37,6 +40,34 @@ namespace IsatiIntegration.API.Services
             var teamsCursor = await _teams.FindAsync(dbTeam => true);
 
             return await teamsCursor.ToListAsync();
+        }
+
+        public async Task<List<Team>> GetRankedTeamsForUser()
+        {
+            var appSettingsCursor = await _appSettings.FindAsync(dbAppSettings => true);
+            var appSettings = await appSettingsCursor.FirstOrDefaultAsync();
+            var showRanking = false;
+
+            if (appSettings != null)
+            {
+                showRanking = appSettings.ShowTeamsRanking;
+            }
+
+            if (!showRanking)
+            {
+                return new List<Team>();
+            }
+
+            var sortedTeams = await _teams.Find(team => true).Sort(new BsonDocument("Score", -1)).ToListAsync();
+
+            return sortedTeams;
+        }
+
+        public async Task<List<Team>> GetRankedTeamsForAdmin()
+        {
+            var sortedTeams = await _teams.Find(team => true).Sort(new BsonDocument("Score", -1)).ToListAsync();
+
+            return sortedTeams;
         }
 
         public async Task<string> CreateTeam(Team toCreate)
